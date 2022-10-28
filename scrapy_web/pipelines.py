@@ -8,10 +8,21 @@
 from itemadapter import ItemAdapter
 from elasticsearch2 import Elasticsearch
 import hashlib
+# import MySQLdb
 
 class ScrapyWebPipeline:
 
     def process_item(self, item, spider):
+#         self.conn = MySQLdb.connect(user="root",
+#                     passwd="root",
+#                     db="crawler_test",
+#                     host="localhost")
+#         cur = self.conn.cursor()
+#         cur.execute("SELECT VERSION()")
+#
+#         data = cur.fetchone()
+#
+#         print ("Database version : %s " % data)
         es = Elasticsearch('http://localhost:9200')
         doc = {
             'title': item['title'],
@@ -30,6 +41,6 @@ class ScrapyWebPipeline:
         try:
             duplicate = es.get(index="test-index1", id=key_insert)
         except Exception:
-            return false
+            pass
         resp = es.index(index="test-index1", doc_type ='raw', id=key_insert, body=doc)
         return item

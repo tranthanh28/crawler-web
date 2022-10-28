@@ -17,3 +17,8 @@ class ScrapyWebItem(scrapy.Item):
     time = scrapy.Field()
     author = scrapy.Field()
     category = scrapy.Field()
+
+class ScrapyCategoryItem(scrapy.Item):
+    # define the fields for your item here like:
+
+    post_url = scrapy.Field()
